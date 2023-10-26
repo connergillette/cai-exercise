@@ -70,7 +70,7 @@ export default function Index() {
             ))
           }
         </div>
-        <div className="flex">
+        <div className="flex px-4 py-2 w-full">
           {
             tableFields.map(field => (
               <div className="font-bold w-full">{field}</div>
@@ -79,13 +79,15 @@ export default function Index() {
         </div>
         <div className="flex flex-col gap-2">
           {features.map((feature) => (
-            <div className="flex">
-              {
-                tableFields.map(field => (
-                  <div className="w-full">{feature[field]}</div>
-                ))
-              }
-            </div>
+            <a href={`/${feature.casenumber}`}>
+              <div className="flex hover:bg-gray-200 px-4 py-2 round-md transition whitespace-nowrap">
+                {
+                  tableFields.map(field => (
+                    <div className="w-full">{feature[field]}</div>
+                  ))
+                }
+              </div>
+            </a>
           ))}
         </div>
       </div>
