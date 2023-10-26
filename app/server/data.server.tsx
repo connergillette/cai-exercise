@@ -7,3 +7,35 @@ export const getData = async () => {
   const result = await response.json()
   return result
 }
+
+export const getMetrics = async (data) => {
+  const features = data.features
+  console.log(features)
+  // TODO: Make this non-dummy
+  return [
+    {
+      name: 'Open Cases',
+      value: data.features.filter((feature) => !feature.attributes.casestatus.includes('Closed')).length
+    },
+    {
+      name: 'Record Count',
+      value: features.length
+    },
+    {
+      name: 'Last Record Date',
+      value: new Date(features[0].attributes.opendate).toDateString()
+    },
+    {
+      name: 'Open Cases',
+      value: data.features.filter((feature) => !feature.attributes.casestatus.includes('Closed')).length
+    },
+    {
+      name: 'Record Count',
+      value: features.length
+    },
+    {
+      name: 'Last Record Date',
+      value: new Date(features[0].attributes.opendate).toDateString()
+    },
+  ]
+}

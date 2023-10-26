@@ -7,7 +7,7 @@ import { parse } from 'csv-parse/sync'
 
 import { useReactTable } from '@tanstack/react-table'
 
-import { getData } from '~/server/data.server'
+import { getData, getMetrics } from '~/server/data.server'
 import { useRef } from 'react'
 
 export const action: ActionFunction = async ({ request }) => {
@@ -40,14 +40,13 @@ export const loader: LoaderFunction = async ({ request }: LoaderArgs) => {
 
   /// ...resolve loader
   const data = await getData()
+  const metrics = await getMetrics(data)
 
-  console.log(data)
-
-  return json({ session, data })
+  return json({ session, data, metrics })
 }
 
 export default function Index() {
-  const { data, session } = useLoaderData()
+  const { data, metrics, session } = useLoaderData()
   const actionData = useActionData()
   const tableRef = useRef()
   const columns = data.fields.map((field) => ({ dataField: field.name, text: field.alias }))
@@ -60,8 +59,17 @@ export default function Index() {
 
   return (
     <div>
-      <table ref={tableRef}></table>
       <div className="flex flex-col w-full gap-4">
+        <div className="grid grid-flow-col gap-2 grid-rows-2">
+          {
+            metrics.map(({name, value}) => (
+              <div className="flex flex-col text-center bg-gray-100 rounded-md p-4">
+                <div className="font-bold">{name}</div>
+                <div>{value}</div>
+              </div>
+            ))
+          }
+        </div>
         <div className="flex">
           {
             tableFields.map(field => (
