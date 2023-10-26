@@ -13,7 +13,9 @@
     "@remix-run/vercel": "^1.18.1",
     "@supabase/auth-helpers-remix": "^0.2.1",
     "@supabase/supabase-js": "^2.26.0",
+    "@tanstack/react-table": "^8.10.7",
     "@vercel/node": "^2.10.3",
+    "csv-parse": "^5.5.2",
     "isbot": "^3.6.8",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
